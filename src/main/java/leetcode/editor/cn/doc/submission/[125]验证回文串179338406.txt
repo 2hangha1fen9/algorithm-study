@@ -1,0 +1,9 @@
+import java.util.Locale;
+class Solution {
+    public boolean isPalindrome(String s) {
+         s = s.replaceAll("[\\W,\\_]+","").toLowerCase(Locale.ROOT);
+        return s.equals(new StringBuilder(s).reverse().toString());
+    }
+}
+//runtime:22 ms
+//memory:40.1 MB

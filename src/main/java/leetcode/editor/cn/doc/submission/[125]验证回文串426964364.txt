@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        s = s.replaceAll("[^a-zA-Z0-9]+","");
+        int a = 0;
+        int b = s.length();
+
+        while (a < b){
+            char t1 = s.charAt(a);
+            char t2 = s.charAt(b - 1);
+            if(!String.valueOf(t1).equalsIgnoreCase(String.valueOf(t2))) {
+                return false;
+            }
+            a++;
+            b--;
+        }
+        return true;
+    }
+}
+
+//runtime:25 ms
+//memory:42.7 MB
