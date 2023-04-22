@@ -1,0 +1,31 @@
+**思路**
+如果 后一天股价比前一天高  我就卖出，如果后一天股价比前一天小  我就买入  把每天的钱都贪到。
+
+* 
+
+```
+class Solution {
+    public int maxProfit(int[] prices) {
+        // 如果价格数组中的元素个数小于2，则返回0
+        if (prices.length < 2)
+            return 0;
+        // 初始化变量cur表示当前能够买入的最佳时机，初始值为第一天的价格
+        int cur = prices[0];
+        // 初始化变量ans表示能够获得的最大利润，初始值为 0
+        int ans = 0;
+        // 遍历整个价格数组
+        for (int i = 1; i < prices.length; i++) {
+            // 如果当前价格比cur大，我就卖出，将差值加到ans中，同时更新cur的值为当前价格
+            if (prices[i] -cur > 0){
+                ans = ans + prices[i] - cur;
+                cur = prices[i];
+            }else 
+                // 否则，说明当天股价比前一天低，我不前一天不买，低了再买入，此时将cur的值更新为当天的价格
+                cur = prices[i];
+        }
+        // 返回最大利润
+        return ans;
+    }
+}
+```
+

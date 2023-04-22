@@ -1,0 +1,82 @@
+> Problem: [2. 两数相加](https://leetcode.cn/problems/add-two-numbers/description/)
+
+[TOC]
+
+# 思路
+
+> 先把每一位加上，生成链表后再考虑进位问题
+
+# 解题方法
+
+> 描述你的解题方法
+
+# 复杂度
+
+- 时间复杂度:
+
+> 添加时间复杂度, 示例： $O(n)$
+
+- 空间复杂度:
+
+> 添加空间复杂度, 示例： $O(n)$
+
+# Code
+
+* []
+
+```C
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2)
+{
+	struct ListNode* retHead = (struct ListNode*)malloc(sizeof(struct ListNode));   //添加哨兵位方便尾插
+	struct ListNode* cur = retHead;
+	while (l1 && l2)
+	{
+		struct ListNode* newListNode = (struct ListNode*)malloc(sizeof(struct ListNode));
+		newListNode->val = l1->val + l2->val;
+		newListNode->next = NULL;
+		cur->next = newListNode;
+		cur = cur->next;
+		l1 = l1->next;
+		l2 = l2->next;
+	}
+	if (l1)     //若l2遍历完
+	{
+		cur->next = l1;
+	}
+	else if (l2)   //若l1遍历完
+	{
+		cur->next = l2;
+	}
+	cur = retHead->next;//若l1与l2都遍历完
+	while (cur)  //进位代码
+	{
+		if (cur->next == NULL && cur->val >= 10)//若是链表末且需要进位
+		{
+			struct ListNode* newListNode = (struct ListNode*)malloc(sizeof(struct ListNode)); //由于每位最大为9，最多只需要进一次位
+			newListNode->val = cur->val / 10;
+			newListNode->next = NULL;
+			cur->val = cur->val % 10;
+			cur->next = newListNode;
+		}
+		else if (cur->val >= 10)//满足进位条件且不是链表末
+		{
+			cur->next->val += cur->val / 10;
+			cur->val = cur->val % 10;
+		}
+		cur = cur->next;
+
+	}
+	return retHead->next;
+}
+```
+

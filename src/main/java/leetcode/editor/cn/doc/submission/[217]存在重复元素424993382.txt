@@ -1,0 +1,38 @@
+class Solution {
+    //依次遍历超时
+    public boolean containsDuplicate_1(int[] nums) {
+        for(int i = 0;i < nums.length - 1;i++){
+            for(int j = i + 1;j < nums.length;j++){
+                if(nums[i] == nums[j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    //执行耗时:19 ms,击败了41.23% 的Java用户
+    //内存消耗:55.5 MB,击败了28.70% 的Java用户
+    public boolean containsDuplicate_2(int[] nums) {
+        //将数据排序
+        Arrays.sort(nums);
+        //比较相邻数据
+        for(int i = 0;i < nums.length - 1;i++){
+            if(nums[i] == nums[i + 1]){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int n : nums){
+            if(!set.add(n)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+//runtime:7 ms
+//memory:53.7 MB

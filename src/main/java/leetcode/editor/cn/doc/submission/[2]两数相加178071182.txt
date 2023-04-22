@@ -1,0 +1,36 @@
+import java.math.BigInteger;
+class Solution {
+    public StringBuilder getVal(ListNode node,StringBuilder num)
+    {
+        if(node.next == null)
+        {
+            return num.append(node.val);
+        }
+        getVal(node.next,num);
+        return num.append(node.val);
+    }
+
+    public ListNode fillListNode(String num, ListNode node,int i)
+    {
+        if(i == num.length() - 1)
+        {
+            return node;
+        }
+        ListNode temp = new ListNode(Integer.parseInt(String.valueOf(num.charAt(++i))),node);
+        return fillListNode(num,temp,i);
+    }
+
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2)
+    {
+        BigInteger num1 = new BigInteger(getVal(l1,new StringBuilder()).toString());
+        BigInteger num2 = new BigInteger(getVal(l2,new StringBuilder()).toString());
+        String answer = num1.add(num2).toString();
+
+
+
+        return fillListNode(answer,new ListNode(Integer.parseInt(String.valueOf(answer.charAt(0)))),0);
+    }
+}
+//runtime:13 ms
+//memory:38.7 MB

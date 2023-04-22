@@ -1,0 +1,15 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        k %= nums.length;
+        if(nums.length == 1)
+        {
+            return;
+        }
+        int[] copyed = new int[nums.length];
+        System.arraycopy(nums,0,copyed,0,nums.length);
+        System.arraycopy(copyed,0,nums,k,nums.length - k);
+        System.arraycopy(copyed,nums.length - k,nums,0,k);
+    }
+}
+//runtime:0 ms
+//memory:55.5 MB

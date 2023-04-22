@@ -1,0 +1,12 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        k = (k % nums.length);
+        int[] temp = new int[nums.length];
+        for(int i = 0;i < nums.length;i++){
+            temp[(i + k) % nums.length] = nums[i]; //移动数组后半部分
+        }
+        System.arraycopy(temp,0,nums,0,nums.length);
+    }
+}
+//runtime:1 ms
+//memory:56.7 MB

@@ -1,0 +1,20 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+for(int i = digits.length - 1;i >= 0;i--){
+            if(digits[i] != 9){ //当前位如果不为9则表示当前位没有进位,则后面的数都为0
+                digits[i]++; //加一
+                for(int j = i + 1;j < digits.length;j++){ //置为0
+                    digits[j] = 0;
+                }
+                return digits; //返回结果
+            }
+        }
+
+        // 全部为9的情况
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+}
+//runtime:0 ms
+//memory:40.1 MB

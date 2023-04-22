@@ -1,0 +1,21 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+digits[digits.length - 1]++;
+        LinkedList<Integer> result = new LinkedList<>();
+        for(int i = digits.length - 1;i >= 0;i--){
+            if(digits[i] > 9){
+                result.addFirst(0);
+                if(i == 0){
+                    result.addFirst(1);
+                    break;
+                }
+                digits[i - 1]++;
+            }else{
+                result.addFirst(digits[i]);
+            }
+        }
+        return result.stream().mapToInt(Integer::intValue).toArray();
+    }
+}
+//runtime:3 ms
+//memory:40.3 MB

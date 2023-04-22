@@ -1,0 +1,7 @@
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        return !(nums.length == Arrays.stream(nums).distinct().count());
+    }
+}
+//runtime:18 ms
+//memory:52.8 MB
