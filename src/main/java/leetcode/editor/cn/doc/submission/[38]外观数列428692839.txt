@@ -1,0 +1,33 @@
+class Solution {
+    public String countAndSay(int n) {
+        String currentDescription = "1";
+        for(int i = 1;i < n;i++){
+            currentDescription = description(i,currentDescription);
+        }
+        return currentDescription;
+    }
+
+    public String description(int n,String str){
+        StringBuilder sb = new StringBuilder();
+        char[] s = str.toCharArray();
+        int a = 0;
+        int b = 0;
+        int currentCount = 0;
+        while (b < s.length){
+            if(s[a] == s[b]){
+                currentCount++;
+                b++;
+            }
+            if(b == s.length || s[a] != s[b]){
+                sb.append(currentCount);
+                sb.append(s[a]);
+                a = b;
+                currentCount = 0;
+            }
+        }
+        return sb.toString();
+    }
+}
+
+//runtime:1 ms
+//memory:39.1 MB
