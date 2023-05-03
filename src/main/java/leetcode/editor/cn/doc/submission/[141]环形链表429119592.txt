@@ -1,0 +1,32 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    //快慢指针
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null){
+            fast = fast.next.next;
+            //快慢指针相遇说明有环
+            if(fast.val == slow.val){
+                return true;
+            }
+            slow = slow.next;
+        }
+        return false;
+    }
+}
+
+//runtime_error:java.lang.NullPointerException: Cannot read field "val" because "<local3>" is null
+  at line 20, Solution.hasCycle
+  at line 88, __Driver__.main
+//last_testcase:[1,2] -1
