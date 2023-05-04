@@ -50,7 +50,7 @@ static
 
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
-        return 1;
+        return 2;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
