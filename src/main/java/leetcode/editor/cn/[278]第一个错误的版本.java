@@ -40,7 +40,11 @@ package leetcode.editor.cn;
 class FirstBadVersion{
     public static void main(String[] args) {
         Solution solution = new Solution();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> origin/main
     }
     
 static
@@ -50,7 +54,11 @@ static
 
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> origin/main
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
