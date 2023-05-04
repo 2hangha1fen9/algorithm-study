@@ -50,7 +50,15 @@ static
 
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
-        return 2;
+        int start = 1, end = n;
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+            if (!isBadVersion(mid))
+                start = mid + 1;
+            else
+                end = mid;
+        }
+        return start;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
