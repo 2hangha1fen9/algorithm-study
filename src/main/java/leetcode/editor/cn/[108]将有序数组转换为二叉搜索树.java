@@ -38,8 +38,7 @@ package leetcode.editor.cn;
 class ConvertSortedArrayToBinarySearchTree{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] nums = new int[]{-10,-3,0,5,9};
-        TreeNode root = solution.sortedArrayToBST(nums);
+        
     }
     static  public class TreeNode {
         int val;
