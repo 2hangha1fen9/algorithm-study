@@ -55,16 +55,10 @@
 
 
 package leetcode.editor.cn;
-
-import java.util.Arrays;
-
 class MergeSortedArray{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] nums1 = new int[]{2,0};
-        int[] nums2 = new int[]{1};
-        solution.merge(nums1,1,nums2,1);
-        System.out.println(Arrays.toString(nums1));
+        
     }
     
 static

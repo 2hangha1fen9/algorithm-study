@@ -70,7 +70,6 @@ static
  * }
  */
 class Solution {
-    //dfs
     public TreeNode sortedArrayToBST(int[] num) {
         if (num.length == 0)
             return null;
