@@ -1,0 +1,24 @@
+class Solution {
+     public int maxProfit1(int[] prices) {
+        if (prices == null || prices.length == 0)
+            return 0;
+        int length = prices.length;
+        int[][] dp = new int[length][2];
+        //边界条件
+        dp[0][0]= 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < length; i++) {
+            //递推公式
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i - 1][1], -prices[i]);
+        }
+        //毋庸置疑，最后肯定是手里没持有股票利润才会最大，也就是卖出去了
+        return dp[length - 1][0];
+    }
+}
+//total_correct:0
+//compile_error:Line 7: error: cannot find symbol [in __Driver__.java]
+      int ret = new Solution().maxProfit(param_1);
+                              ^
+  symbol:   method maxProfit(int[])
+  location: class Solution
