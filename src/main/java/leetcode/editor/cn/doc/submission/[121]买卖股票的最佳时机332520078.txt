@@ -1,0 +1,13 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+         int maxProfit = 0;
+         for (int i = 0;i < prices.length;i++){
+             minPrice = Math.min(minPrice,prices[i]); //计算每天最低的价格
+             maxProfit = Math.max(prices[i] - minPrice,maxProfit); //计算每天最低价格的利润
+         }
+         return maxProfit;
+    }
+}
+//runtime:1 ms
+//memory:57.7 MB
