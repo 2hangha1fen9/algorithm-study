@@ -1,0 +1,13 @@
+class Solution {
+    public int maxSubArray(int[] nums) {
+int cur = 0; //局部最大和
+        int sum = nums[0]; //最大和
+        for (int i : nums) {
+            cur = Math.max(i + cur,i);
+            sum = Math.max(cur,sum);
+        }
+        return sum;
+    }
+}
+//runtime:1 ms
+//memory:50.4 MB
