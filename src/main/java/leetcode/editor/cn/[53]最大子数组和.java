@@ -55,12 +55,13 @@ static
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxSubArray(int[] nums) {
-        int[] dp = new int[nums.length];
-        dp[0] = nums[0];
-        for(int i = 1;i < dp.length;i++){
-            dp[i] = Math.max(dp[i],dp[i] + nums[i]);
+        int cur = nums[0];
+        int sum = nums[0];
+        for(int i = 1;i < nums.length;i++){
+            cur = Math.max(cur + nums[i],nums[i]);
+            sum = Math.max(cur,sum);
         }
-        return dp[dp.length - 1];
+        return sum;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
