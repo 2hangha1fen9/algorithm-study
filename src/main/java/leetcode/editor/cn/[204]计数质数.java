@@ -36,17 +36,56 @@
 
 
 package leetcode.editor.cn;
+
+import java.util.Arrays;
+
 class CountPrimes{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        
+        System.out.println(solution.countPrimes(10));
     }
     
 static
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int countPrimes(int n) {
+    //超时
+    public int countPrimes_1(int n) {
+        int count = 0;
+        int i = 2;
+        while (i < n){
+            if(isPrime(i)){
+                count++;
+            }
+            i++;
+        }
+        return count;
+    }
+    public boolean isPrime(int n){
+        for (int i = 2; i * i <= n; ++i) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
+    //埃氏筛
+    public int countPrimes(int n){
+        boolean[] isPrimes = new boolean[n];
+        Arrays.fill(isPrimes,true);
+        int count = 0;
+        for(int i = 2;i < n;i++){
+            if(isPrimes[i]){
+                count++;
+                //如果这个数是质数则它的倍数都不是2i,3i,4i
+                if((long)i * i < n){
+                    for(int j = i * i;j < n;j += i){
+                        isPrimes[j] = false;
+                    }
+                }
+            }
+        }
+        return count;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
