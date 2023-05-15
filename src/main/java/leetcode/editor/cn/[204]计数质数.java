@@ -36,17 +36,33 @@
 
 
 package leetcode.editor.cn;
+
+import java.util.Arrays;
+
 class CountPrimes{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        
+        System.out.println(solution.countPrimes(10));
     }
     
 static
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int countPrimes(int n) {
-
+        int count = 0;
+        boolean[] isPrimes = new boolean[n];
+        Arrays.fill(isPrimes,true);
+        for(int i = 2;i < n;i++){
+            if(isPrimes[i]){
+                count++;
+                if((long) i * i <= n){
+                    for(int j = i * i;j < n;j += i){
+                        isPrimes[j] = false;
+                    }
+                }
+            }
+        }
+        return count;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
