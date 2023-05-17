@@ -1,0 +1,36 @@
+* 
+
+```
+从大到小依次遍历基本数字，当基本数字大于等于 num 时就往后加上对应符号并将num
+相对应减小，直到 num 为 0 即可
+---
+
+public class Solution
+    {
+        public string IntToRoman(int num)
+        {
+            StringBuilder s = new StringBuilder(12);
+            Dictionary<string, int> D = new Dictionary<string, int>();
+            D.Add("M", 1000);
+            D.Add("CM", 900);
+            D.Add("D", 500);
+            D.Add("CD",400);          
+            D.Add("C", 100);
+            D.Add("XC", 90);
+            D.Add("L", 50);
+            D.Add("XL", 40);
+            D.Add("X", 10);
+            D.Add("IX", 9);
+            D.Add("V", 5);
+            D.Add("IV", 4);
+            D.Add("I", 1);
+            foreach (var i in D)
+            {
+                while (num >= i.Value) { s.Append(i.Key); num -= i.Value; }
+                if (num == 0) break;
+            }
+            return s.ToString();
+        }
+    }
+```
+

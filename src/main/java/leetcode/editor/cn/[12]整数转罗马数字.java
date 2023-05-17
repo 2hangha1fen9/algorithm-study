@@ -90,34 +90,19 @@ class Solution {
     public String intToRoman(int num) {
         StringBuilder sb = new StringBuilder();
         //罗马字母表
-        Map<Integer,String> roman = new HashMap<>();
-        roman.put(1,"I");
-        roman.put(4,"IV");
-        roman.put(5,"V");
-        roman.put(9,"IX");
-        roman.put(10,"X");
-        roman.put(40,"XL");
-        roman.put(50,"L");
-        roman.put(90,"XC");
-        roman.put(100,"C");
-        roman.put(400,"CD");
-        roman.put(500,"D");
-        roman.put(900,"CM");
-        roman.put(1000,"M");
-        int l = 1;
-        while (num > 0){
-            int n = num % 10;
-            String r = roman.get(n * l);
-            if(r == null){
-                int a = (n * l) - (9 * l);
-                int b = (n * l) - (5 * l) - a;
-                int c = (n * l) - (4 * l) - b;
-                int d = (n * l) - (1 * l) - c;
-                System.out.println(d);
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        for(int i = 0;i < values.length;i++){
+            int value = values[i];
+            String symbol = symbols[i];
+            //如果当前罗马数字不小于当前数，就将当前罗马数字添加到结果
+            while (num >= value){
+                num -= value;
+                sb.append(symbol);
             }
-            sb.append(r);
-            l *= 10;
-            num /= 10;
+            if(num == 0){
+                break;
+            }
         }
 
         return sb.toString();
