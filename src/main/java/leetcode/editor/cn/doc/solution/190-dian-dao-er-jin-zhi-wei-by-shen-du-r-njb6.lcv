@@ -1,0 +1,115 @@
+> Problem: [190. 颠倒二进制位](https://leetcode.cn/problems/reverse-bits/description/)
+
+[TOC]
+
+# 思路:
+
+**基础知识必知**：[位运算基本原理](https://blog.csdn.net/weixin_43412762/article/details/130567969)
+
+**法一：循环**
+- 将 `n` 视作一个长为 `32` 的二进制串，从低位往高位枚举 `n` 的每一位，将其倒序添加到翻转结果 `ans` 中。
+- 代码实现中，每枚举一位就将 `n` 右移一位，这样当前 `n` 的最低位就是我们要枚举的比特位。当 `n` 为 `0` 时即可结束循环。
+
+> 需要注意的是，在某些语言（如 `Java`）中，没有无符号整数类型，因此对 `n` 的右移操作应使用**逻辑右移**（无符号右移）。
+
+**法二：分治**
+
+若要翻转一个二进制串，可以将其 **均分** 成左右两部分，对每部分 **递归** 执行翻转操作，然后将左半部分拼在右半部分的后面，即完成了翻转。
+
+由于左右两部分的计算方式是相似的，利用`位掩码`和`位移`运算，我们可以自底向上地完成这一分治流程。
+
+对于递归的最底层，我们需要交换所有奇偶位：
+1. 取出所有**奇数位**和**偶数位**；
+2. 将**奇数位**移到**偶数位**上，**偶数位**移到**奇数位**上。
+
+类似地，对于倒数第二层，每两位分一组，按组号取出所有**奇数组**和**偶数组**，然后将**奇数组**移到**偶数组**上，**偶数组**移到**奇数组**上。以此类推。
+
+# Code
+
+**法一：循环**
+
+* []
+
+```Java
+public class Solution {
+    // you need treat n as an unsigned value
+    public int reverseBits(int n) {
+        int ans = 0;
+        for(int i = 0; i < 32; i++){
+            ans <<= 1;
+            ans |= (n & 1);
+            n >>>= 1;
+        }
+        return ans;
+    }
+}
+```
+
+* []
+
+```C++
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        uint32_t ans = 0;
+        for(int i = 0; i < 32; i++){
+            ans <<= 1;
+            ans |= (n & 1);
+            n >>= 1;
+        }
+        return ans;
+    }
+};
+```
+
+**法二：分治**
+
+* []
+
+```Java
+public class Solution {
+    // you need treat n as an unsigned value
+    private static final int M1 = 0x55555555; // 01010101010101010101010101010101
+    private static final int M2 = 0x33333333; // 00110011001100110011001100110011
+    private static final int M4 = 0x0f0f0f0f; // 00001111000011110000111100001111
+    private static final int M8 = 0x00ff00ff; // 00000000111111110000000011111111
+
+    public int reverseBits(int n) {
+        n = n >>> 1 & M1 | (n & M1) << 1;
+        n = n >>> 2 & M2 | (n & M2) << 2;
+        n = n >>> 4 & M4 | (n & M4) << 4;
+        n = n >>> 8 & M8 | (n & M8) << 8;
+        return n >>> 16 | n << 16;
+    }
+}
+```
+
+* []
+
+```C++
+class Solution {
+private:
+    const uint32_t M1 = 0x55555555; // 01010101010101010101010101010101
+    const uint32_t M2 = 0x33333333; // 00110011001100110011001100110011
+    const uint32_t M4 = 0x0f0f0f0f; // 00001111000011110000111100001111
+    const uint32_t M8 = 0x00ff00ff; // 00000000111111110000000011111111
+
+public:
+    uint32_t reverseBits(uint32_t n) {
+        n = n >> 1 & M1 | (n & M1) << 1;
+        n = n >> 2 & M2 | (n & M2) << 2;
+        n = n >> 4 & M4 | (n & M4) << 4;
+        n = n >> 8 & M8 | (n & M8) << 8;
+        return n >> 16 | n << 16;
+    }
+};
+```
+
+# 复杂度分析：
+
+- **时间复杂度**：$O(1)$。
+- **空间复杂度**：$O(1)$。
+
+> 放弃一件事很容易，每天能坚持一件事一定很酷，一起每日一题吧！
+
+**关注我 [leetCode专栏](http://t.csdn.cn/kQLJO)，每日更新！**

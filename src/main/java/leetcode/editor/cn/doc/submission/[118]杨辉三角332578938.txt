@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+List<List<Integer>> triangle = new ArrayList<>();
+        for (int i = 0;i < numRows;i++){
+            List<Integer> row = new ArrayList<>();
+            for(int j = 0;j <= i;j++){
+                if(j == 0 || j == i){ //杨辉三角头尾都是1
+                    row.add(1);
+                }else {
+                    int left = triangle.get(i - 1).get(j - 1); //位于当前位置上一行的左边元素
+                    int right = triangle.get(i - 1).get(j);//位于当前位置上方的元素
+                    row.add(left + right); //计算值
+                }
+            }
+            triangle.add(row); //添加行
+        }
+        return triangle;
+    }
+}
+//runtime:0 ms
+//memory:39.5 MB
