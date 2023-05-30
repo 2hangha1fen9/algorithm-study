@@ -34,17 +34,39 @@
 */
 
 package leetcode.editor.cn;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 class MergeIntervals{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        
+        int[][] intervals = {{1,9},{2,5},{19,20},{10,11},{12,20},{0,3},{0,1},{0,2}};
+        solution.merge(intervals);
+        System.out.println(intervals);
     }
     
 static
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[][] merge(int[][] intervals) {
-        //1,2,3,6,8,10,15,18
+        Arrays.sort(intervals,Comparator.comparingInt(i -> i[0]));
+        List<int[]> merged = new ArrayList<>();
+        for(int i = 0;i < intervals.length;i++){
+            int l = intervals[i][0];
+            int r = intervals[i][1];
+            // 如果列表为空，或者当前区间与上一区间不重合，直接添加
+            if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < l){
+                merged.add(intervals[i]);
+            }
+            else{
+                //否则的话，我们就可以与上一区间进行合并
+                merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1],r);
+            }
+        }
+        return merged.toArray(new int[merged.size()][2]);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
