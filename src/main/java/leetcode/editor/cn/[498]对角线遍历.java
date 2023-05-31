@@ -37,16 +37,45 @@ package leetcode.editor.cn;
 class DiagonalTraverse{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        
+        int[][] mat = {{1,2,3,4,5,6,7,8,9},
+                       {3,4,5,4,5,3,5,6,4},
+                       {4,5,6,4,2,1,1,3,4},
+                       {5,6,3,3,2,3,4,5,3}};
+        solution.findDiagonalOrder(mat);
     }
     
 static
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] findDiagonalOrder(int[][] mat) {
-        int[] result = new int[mat.length * mat[0].length];
-        result[0] = mat[0][0];
-        for(int l = 1;l)
+        int m = mat.length;
+        int n = mat[0].length;
+        int[] result = new int[m * n];
+        int r = 0;
+
+        for (int i = 0; i < m + n; i++) {
+            // 偶数行上到下遍历
+            if (i % 2 == 0) {
+                int y = Math.min(i, m - 1);
+                int x = i - y;
+                while (y >= 0 && x < n) {
+                    result[r++] = mat[y--][x++];
+                }
+
+            }
+            // 奇数行从下往上遍历
+            else {
+                int x = Math.min(i, n - 1);
+                int y = i - x;
+                System.out.println(y + ":" + x);
+                while (x >= 0 && y < m) {
+                    result[r++] = mat[y++][x--];
+                }
+
+            }
+        }
+
+        return result;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

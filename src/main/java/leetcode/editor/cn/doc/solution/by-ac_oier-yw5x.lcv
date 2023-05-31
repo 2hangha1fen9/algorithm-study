@@ -1,0 +1,89 @@
+## 模拟
+
+根据题意进行模拟即可。
+
+为了方便，令 `mat` 为 `g`，记 `g` 的行和宽分别为 $n$ 和 $m$。当前所在位置为 $(x, y)$，遍历方向使用 $dir$ 代指（当 $dir = 1$ 代表往右上方进行遍历，当 $dir = -1$ 代表往左下方进行遍历），使用 $idx$ 记录当前处理到的答案下标。
+
+每次除了将当前格子放入答案（`ans[idx++]=g[x][y]`）以外，还需要结合 $dir$ 找到当前位置的右上方格子 $(x - 1, y + 1)$ 或是左下方格子 $(x + 1, y - 1)$，若下一目标位置「越界」并且还没搜索完整个矩阵，我们需要根据优先级来找「下一个发起点」的位置，并且翻转遍历方向。
+
+具体的找「下一个发起点」的优先级为：
+
+* 若当前遍历方向为往右上角，即 $dir = 1$，优先找 $(x, y + 1)$ 作为下一发起点，若越界，则找 $(x + 1, y)$ 作为下一发起点；
+* 若当前遍历方向为往左下角，即 $dir = -1$，优先找 $(x + 1, y)$ 作为下一发起点，若越界，则找 $(x, y + 1)$ 作为下一发起点。
+
+代码：
+
+* []
+
+```Java
+class Solution {
+    public int[] findDiagonalOrder(int[][] g) {
+        int n = g.length, m = g[0].length, cnt = n * m;
+        int[] ans = new int[cnt];
+        int x = 0, y = 0, dir = 1, idx = 0;
+        while (idx != cnt) {
+            ans[idx++] = g[x][y];
+            int nx = x, ny = y;
+            if (dir == 1) {
+                nx = x - 1; ny = y + 1;
+            } else {
+                nx = x + 1; ny = y - 1;
+            }
+            if (idx < cnt && (nx < 0 || nx >= n || ny < 0 || ny >= m)) {
+                if (dir == 1) {
+                    nx = y + 1 < m ? x : x + 1;
+                    ny = y + 1 < m ? y + 1 : y;
+                } else {
+                    nx = x + 1 < n ? x + 1 : x;
+                    ny = x + 1 < n ? y : y + 1;
+                }
+                dir *= -1;
+            }
+            x = nx; y = ny;
+        }
+        return ans;
+    }
+}
+```
+
+* 时间复杂度：$O(n \times m)$
+* 空间复杂度：$O(1)$
+
+---
+
+## 加餐 & 加练
+
+简单题，来一道简单加餐 : **[【综合笔试题】难度 2.5/5 :「树状数组」与「双树状数组优化」](https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247491983&idx=1&sn=1a3d0389b9592ff1dcf410fce6b08aba) 🎉🎉**
+
+或是考虑加练如下「模拟」题 🍭🍭🍭
+
+| 题目                                                                                 | 题解                                                                                                                                                                      | 难度 | 推荐指数   |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---------- |
+| [6. Z 字形变换](https://leetcode-cn.com/problems/zigzag-conversion/)                | [LeetCode 题解链接](https://leetcode-cn.com/problems/zigzag-conversion/solution/shua-chuan-lc-zhi-guan-gui-lu-jie-fa-shu-8226/)         | 中等 | 🤩🤩🤩     |
+| [8. 字符串转换整数 (atoi)](https://leetcode-cn.com/problems/string-to-integer-atoi/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/string-to-integer-atoi/solution/shua-chuan-lc-jian-ji-jie-fa-by-ac_oier-69tp/)                        | 中等 | 🤩🤩🤩     |
+| [12. 整数转罗马数字](https://leetcode-cn.com/problems/integer-to-roman/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/integer-to-roman/solution/shua-chuan-lc-tan-xin-jie-fa-by-ac_oier-5kbw/) | 中等 | 🤩🤩 |
+| [59. 螺旋矩阵 II](https://leetcode-cn.com/problems/spiral-matrix-ii/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/spiral-matrix-ii/solution/yi-ti-shuang-jie-xiang-jie-xing-zhuang-j-24x8/) | 中等 | 🤩🤩🤩🤩 |
+| [65. 有效数字](https://leetcode-cn.com/problems/valid-number/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/valid-number/solution/gong-shui-san-xie-zi-fu-chuan-mo-ni-by-a-7cgc/) | 困难 | 🤩🤩🤩 |
+| [73. 矩阵置零](https://leetcode-cn.com/problems/set-matrix-zeroes/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/set-matrix-zeroes/solution/xiang-jie-fen-san-bu-de-o1-kong-jian-jie-dbxd/) | 中等 | 🤩🤩🤩🤩 |
+| [89. 格雷编码](https://leetcode-cn.com/problems/gray-code/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/gray-code/solution/gong-shui-san-xie-dui-cheng-xing-gou-zao-9ap1/) | 中等 | 🤩🤩🤩🤩 |
+| [166. 分数到小数](https://leetcode-cn.com/problems/fraction-to-recurring-decimal/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/fraction-to-recurring-decimal/solution/gong-shui-san-xie-mo-ni-shu-shi-ji-suan-kq8c4/) | 中等 | 🤩🤩🤩🤩 |
+| [260. 只出现一次的数字 III](https://leetcode-cn.com/problems/single-number-iii/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/single-number-iii/solution/gong-shui-san-xie-yi-ti-shuang-jie-ha-xi-zgi4/) | 中等 | 🤩🤩🤩🤩 |
+| [414. 第三大的数](https://leetcode-cn.com/problems/third-maximum-number/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/third-maximum-number/solution/gong-shui-san-xie-yi-ti-shuang-jie-pai-x-pmln/) | 中等 | 🤩🤩🤩🤩 |
+| [419. 甲板上的战舰](https://leetcode-cn.com/problems/battleships-in-a-board/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/battleships-in-a-board/solution/gong-shui-san-xie-ji-chong-sao-miao-xian-trmc/) | 中等 | 🤩🤩🤩🤩 |
+| [443. 压缩字符串](https://leetcode-cn.com/problems/string-compression/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/string-compression/solution/gong-shui-san-xie-shuang-zhi-zhen-yuan-d-bppu/) | 中等 | 🤩🤩🤩🤩 |
+| [457. 环形数组是否存在循环](https://leetcode-cn.com/problems/circular-array-loop/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/circular-array-loop/solution/gong-shui-san-xie-yi-ti-shuang-jie-mo-ni-ag05/) | 中等 | 🤩🤩🤩🤩 |
+| [528. 按权重随机选择](https://leetcode-cn.com/problems/random-pick-with-weight/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/random-pick-with-weight/solution/gong-shui-san-xie-yi-ti-shuang-jie-qian-8bx50/) | 中等 | 🤩🤩🤩🤩 |
+| [539. 最小时间差](https://leetcode-cn.com/problems/minimum-time-difference/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/minimum-time-difference/solution/gong-shui-san-xie-jian-dan-mo-ni-ti-by-a-eygg/) | 中等 | 🤩🤩🤩🤩 |
+| [726. 原子的数量](https://leetcode-cn.com/problems/number-of-atoms/) | [LeetCode 题解链接](https://leetcode-cn.com/problems/number-of-atoms/solution/gong-shui-san-xie-shi-yong-xiao-ji-qiao-l5ak4/) | 困难 | 🤩🤩🤩🤩 |
+
+**注：以上目录整理来自 [wiki](https://github.com/SharingSource/LogicStack-LeetCode/wiki/模拟)，任何形式的转载引用请保留出处。**
+
+---
+
+## 最后
+
+**如果有帮助到你，请给题解点个赞和收藏，让更多的人看到 ~ ("▔□▔)/**
+
+也欢迎你 [关注我](https://oscimg.oschina.net/oscnet/up-19688dc1af05cf8bdea43b2a863038ab9e5.png) 和 加入我们的[「组队打卡」](https://leetcode-cn.com/u/ac_oier/)小群 ，提供写「证明」&「思路」的高质量题解。
+
+所有题解已经加入 [刷题指南](https://github.com/SharingSource/LogicStack-LeetCode/wiki)，欢迎 star 哦 ~
