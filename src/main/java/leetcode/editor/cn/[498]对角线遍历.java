@@ -67,7 +67,6 @@ class Solution {
             else {
                 int x = Math.min(i, n - 1);
                 int y = i - x;
-                System.out.println(y + ":" + x);
                 while (x >= 0 && y < m) {
                     result[r++] = mat[y++][x--];
                 }
