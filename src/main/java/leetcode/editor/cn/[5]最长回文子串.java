@@ -34,10 +34,13 @@
 */
 
 package leetcode.editor.cn;
+
+import java.util.Arrays;
+
 class LongestPalindromicSubstring{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.longestPalindrome("babad"));
+        System.out.println(solution.longestPalindrome("aaaa"));
     }
     
 static
@@ -103,9 +106,38 @@ class Solution {
         return end - start - 1;
     }
 
-
+    //动态规划
     public String longestPalindrome(String s){
-
+        char[] chars = s.toCharArray();
+        //dp[i][j] 代表[i,j]是否数回文串
+        boolean[][] dp = new boolean[chars.length][chars.length];
+        //初始i==j的情况(两个指针指向同一个元素)
+        for(int i = 0;i < dp.length;i++){
+            dp[i][i] = true;
+        }
+        int maxLength = 1;
+        int maxIndex = 0;
+        //上三角遍历，保证所有dp转移能获取到值
+        for(int i = chars.length - 1;i >= 0;i--){
+            for(int j = i;j < chars.length;j++){
+                if(chars[i] == chars[j]){
+                    //长度为2且两个相同，就是回文串
+                    if(j - i < 3){
+                        dp[i][j] = true;
+                    }
+                    //两端相同的情况下，在判断i,j缩放的情况是否是回文串
+                    else {
+                        dp[i][j] = dp[i + 1][j - 1];
+                    }
+                }
+                //i,j是回文串，更新最大长度
+                if(dp[i][j] && j - i + 1 > maxLength){
+                    maxLength = j - i + 1;
+                    maxIndex = i;
+                }
+            }
+        }
+        return s.substring(maxIndex,maxIndex + maxLength);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
