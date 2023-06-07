@@ -48,17 +48,52 @@ length 。
 */
 
 package leetcode.editor.cn;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 class TwoSumIiInputArrayIsSorted{
     public static void main(String[] args) {
         Solution solution = new Solution();
-        
+        System.out.println(Arrays.toString(solution.twoSum(new int[]{2,7,11,15},9)));
     }
     
 static
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public int[] twoSum(int[] numbers, int target) {
+    public int[] twoSum_1(int[] numbers, int target) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i = 0;i < numbers.length;i++){
+            if(map.containsKey(numbers[i])){
+                return new int[]{map.get(numbers[i]) + 1,i + 1};
+            }
+            else{
+                map.put(target - numbers[i],i);
+            }
+        }
+        return new int[]{};
+    }
 
+    public int[] twoSum(int[] numbers, int target){
+        Arrays.sort(numbers);
+        int left = 0;
+        int right = numbers.length - 1;
+        while (left < right){
+            int value = numbers[left] + numbers[right];
+            if(value == target){
+                return new int[]{left + 1,right + 1};
+            }
+            if(value > target)
+            {
+                right--;
+            }
+            if(value < target)
+            {
+                left++;
+            }
+        }
+        return new int[]{};
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
