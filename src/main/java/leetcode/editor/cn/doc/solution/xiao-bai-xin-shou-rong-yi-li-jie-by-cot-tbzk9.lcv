@@ -1,0 +1,28 @@
+### 解题思路
+
+先使用一个数来记录1连续的个数，当遇到0时，先把前面记录的个数赋值给1个记录最大变量的数，再把记录1个数的值赋值为0
+
+### 代码
+
+* javascript
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMaxConsecutiveOnes = function(nums) {
+    let res = 0 // 记录1
+    let maxCount = 0 // 记录最大1的最大个数
+    for(let i = 0 ; i < nums.length;i++){
+        if(nums[i] === 1){// 遇到1就++
+            res++
+        }else{
+            maxCount =Math.max(maxCount, res)// 做一个更新一的最大值
+            res = 0 // 重新记录
+        }
+    }
+    return res > maxCount ? res : maxCount
+};
+```
+
