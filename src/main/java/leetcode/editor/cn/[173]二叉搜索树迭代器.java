@@ -128,21 +128,14 @@ static class BSTIterator {
         initList(root.right);
     }
 
-    public int next_1() {
+    public int next() {
         return iterator.next();
     }
 
-    public int next(){
-
-    }
-
-    public boolean hasNext_1() {
+    public boolean hasNext() {
         return iterator.hasNext();
     }
 
-    public boolean hasNext(){
-
-    }
 }
 
 /**
