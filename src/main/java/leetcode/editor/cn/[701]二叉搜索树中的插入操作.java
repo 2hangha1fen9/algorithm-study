@@ -53,7 +53,24 @@ class InsertIntoABinarySearchTree{
         Solution solution = new Solution();
         
     }
-    
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
 static
 //leetcode submit region begin(Prohibit modification and deletion)
 /**
@@ -73,7 +90,34 @@ static
  */
 class Solution {
     public TreeNode insertIntoBST(TreeNode root, int val) {
-
+        if(root == null){
+            return new TreeNode(val);
+        }
+        TreeNode cur = root;
+        while (true){
+            //右边插入
+            if(val < cur.val){
+                //为空直接插入
+                if(cur.left == null){
+                    cur.left = new TreeNode(val);
+                    break;
+                }else{
+                    //不为空继续下探
+                    cur = cur.left;
+                }
+            }
+            //左边插入
+            else{
+                if(cur.right == null){
+                    cur.right = new TreeNode(val);
+                    break;
+                }
+                else{
+                    cur = cur.right;
+                }
+            }
+        }
+        return root;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
