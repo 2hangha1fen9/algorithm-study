@@ -89,7 +89,7 @@ static
  * }
  */
 class Solution {
-    public TreeNode insertIntoBST(TreeNode root, int val) {
+    public TreeNode insertIntoBST_1(TreeNode root, int val) {
         if(root == null){
             return new TreeNode(val);
         }
@@ -116,6 +116,20 @@ class Solution {
                     cur = cur.right;
                 }
             }
+        }
+        return root;
+    }
+
+    public TreeNode insertIntoBST(TreeNode root, int val){
+        if(root == null){
+            root = new TreeNode(val);
+            return root;
+        }
+        if(val < root.val){
+            root.left = insertIntoBST_1(root.left,val);
+        }
+        if(val > root.val){
+            root.right = insertIntoBST_1(root.right,val);
         }
         return root;
     }
