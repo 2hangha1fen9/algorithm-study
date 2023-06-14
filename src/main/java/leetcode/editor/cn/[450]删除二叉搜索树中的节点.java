@@ -105,31 +105,38 @@ class Solution {
         if(root == null){
             return null;
         }
-        TreeNode cur = root;
-        while (true){
-            //没有子节点，直接删除
-            if(cur.left == null && cur.right == null){
-                cur = null;
-                break;
+        if(root.val == key){
+            //左右节点都为空
+            if(root.left == null && root.right == null){
+                return null;
             }
-            //有两个子节点
-            else if(root.left != null || root.right != null){
-                int
+            //左节点为空，右节点不为空
+            else if(root.left == null && root.right != null){
+                return root.right;
             }
-            //有一个子节点
+            //左节点不为空，右节点为空
+            else if(root.left != null && root.right == null){
+                return root.left;
+            }
+            //左右节点都不为空,找到右子树最右节点，把当前根节点的左子数移到右子树最左节点，在删除当前节点
             else{
-                if(root.left != null){
-                    cur.val = cur.left.val;
-                    cur.left = null;
-                    break;
+                //找到右子树最右节点
+                TreeNode cur = root.right;
+                while (cur.left != null){
+                    cur = cur.left;
                 }
-                if(root.right != null){
-                    cur.val = cur.right.val;
-                    cur.right = null;
-                    break;
-                }
+                //把当前根节点的左子树移到右子树最左节点
+                cur.left = root.left;
+                root.left = null;
+                //删除当前节点
+                return root.right;
             }
-
+        }
+        if(key < root.val){
+            root.left = deleteNode(root.left,key);
+        }
+        else{
+            root.right = deleteNode(root.right,key);
         }
         return root;
     }
