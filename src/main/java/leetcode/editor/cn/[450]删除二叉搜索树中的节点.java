@@ -111,11 +111,11 @@ class Solution {
                 return null;
             }
             //左节点为空，右节点不为空
-            else if(root.left == null && root.right != null){
+            else if(root.left == null){
                 return root.right;
             }
             //左节点不为空，右节点为空
-            else if(root.left != null && root.right == null){
+            else if(root.right == null){
                 return root.left;
             }
             //左右节点都不为空,找到右子树最右节点，把当前根节点的左子数移到右子树最左节点，在删除当前节点
