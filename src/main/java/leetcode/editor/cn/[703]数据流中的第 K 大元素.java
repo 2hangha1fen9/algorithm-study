@@ -93,7 +93,7 @@ class KthLargest {
         return val;
     }
 
-    //向二叉搜索数添加元素
+    //向二叉搜索树添加元素
     public TreeNode add(TreeNode root,int val){
         if(root == null){
             root = new TreeNode(val);
