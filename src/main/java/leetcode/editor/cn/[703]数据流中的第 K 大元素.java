@@ -47,11 +47,11 @@ package leetcode.editor.cn;
 class KthLargestElementInAStream {
     public static void main(String[] args) {
         KthLargest solution = new KthLargest(3, new int[]{4, 5, 8, 2});
-        System.out.println(solution.add(3));
-        System.out.println(solution.add(5));
-        System.out.println(solution.add(10));
-        System.out.println(solution.add(9));
-        System.out.println(solution.add(4));
+        solution.add(3);
+        solution.add(5);
+        solution.add(10);
+        solution.add(9);
+        solution.add(4);
 
     }
 
