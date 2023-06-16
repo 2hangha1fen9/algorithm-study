@@ -44,11 +44,9 @@
 
 package leetcode.editor.cn;
 
-import java.util.*;
-
-class KthLargestElementInAStream{
+class KthLargestElementInAStream {
     public static void main(String[] args) {
-        KthLargest solution = new KthLargest(3, new int[]{4,5,8,2});
+        KthLargest solution = new KthLargest(3, new int[]{4, 5, 8, 2});
         System.out.println(solution.add(3));
         System.out.println(solution.add(5));
         System.out.println(solution.add(10));
@@ -56,9 +54,10 @@ class KthLargestElementInAStream{
         System.out.println(solution.add(4));
 
     }
+
     static class TreeNode {
         int val;
-        int count;
+        int cnt;
         TreeNode left;
         TreeNode right;
 
@@ -67,47 +66,56 @@ class KthLargestElementInAStream{
 
         TreeNode(int val) {
             this.val = val;
-            this.count = 0;
-        }
-
-        TreeNode(int val,TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
+            this.cnt = 1;
         }
     }
+
     static
 //leetcode submit region begin(Prohibit modification and deletion)
-class KthLargest {
-    private TreeNode root;
-    private int k;
-    public KthLargest(int k, int[] nums) {
-        this.k = k;
-        for(int i : nums){
-            this.root = add(this.root,i);
+    class KthLargest {
+        int K = 0;
+        TreeNode root = null;
+
+        public KthLargest(int k, int[] nums) {
+            K = k;
+
+            for (int i = 0; i < nums.length; ++i) {
+                root = insert(root, nums[i]);
+            }
         }
-    }
 
-    public int add(int val) {
-        this.root = add(this.root,val);
-        return val;
-    }
-
-    //向二叉搜索树添加元素
-    public TreeNode add(TreeNode root,int val){
-        if(root == null){
-            root = new TreeNode(val);
+        TreeNode insert(TreeNode root, int val) {
+            if (root == null) {
+                return new TreeNode(val);
+            }
+            if (val < root.val) {
+                root.left = insert(root.left, val);
+            } else {
+                root.right = insert(root.right, val);
+            }
+            int lcnt = root.left == null ? 0 : root.left.cnt;
+            int rcnt = root.right == null ? 0 : root.right.cnt;
+            root.cnt = lcnt + rcnt + 1;
             return root;
         }
-        if(val < root.val){
-            root.left = add(root.left,val);
+
+        public int add(int val) {
+            root = insert(root, val);
+            return find(root, K);
         }
-        if(val > root.val){
-            root.right = add(root.right,val);
+
+        int find(TreeNode root, int k) {
+            int lcnt = root.left == null ? 0 : root.left.cnt;
+            int rcnt = root.right == null ? 0 : root.right.cnt;
+            if (root.cnt - lcnt == k) {
+                return root.val;
+            } else if (root.cnt - lcnt < k) {
+                return find(root.left, k - rcnt - 1);
+            } else {
+                return find(root.right, k);
+            }
         }
-        return root;
     }
-}
 
 /**
  * Your KthLargest object will be instantiated and called as such:
